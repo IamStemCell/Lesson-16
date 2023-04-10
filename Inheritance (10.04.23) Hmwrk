@@ -219,3 +219,27 @@ print(s.get_product_info("Ramen")) #'Ramen', 290 остача 290 перевiр�
 print(s.get_all_products()) #{'Football T-Shirt': {'type': 'Sport', 'price': 130.0, 'amount': 10}, 'Ramen': {'type': 'Food', 'price': 1.9500000000000002, 'amount': 290}} #маэмо 10 доданих футболок и 290 Ramen
 print(s.get_income()) #19.5 прибуток 
 
+#Task4
+#Custom exception
+#Create your custom exception named `CustomException`,
+#you can inherit from base Exception class, but extend its functionality 
+#to log every error message to a file named `logs.txt`. 
+#Tips: Use __init__ method to extend functionality for saving messages to file
+
+class CustomException(Exception):
+    def __init__(self, message):
+        super().__init__(message) #батькiвська конструкцiя що iнiцiалiзуе exception з повiдомленням
+        self.log_error(message)
+
+
+    def log_error(self,message): #метод log error відкриває файл logs.txt в режимi append i записуе туди месседж. тепер при raise СustomExcepton вiн буде записувати помилку в файл logs.txt
+        with open('logs.txt', 'a') as file:
+            file.write(message + '\n')
+
+try:
+    p={x}/8
+    raise CustomException("An error occurred")
+except CustomException as e:
+    # Handle the exception
+    print(e)
+#цей код запише error message до logs.txt i виведе помилку у консоль
